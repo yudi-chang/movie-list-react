@@ -1,0 +1,139 @@
+@import '@/styles/_variables';
+
+.loader {
+  margin: 15% auto 15% auto;
+}
+
+.movies {
+  display: flex;
+  flex-wrap: wrap; 
+  gap: 35px; 
+  justify-content: flex-start;
+
+  * {
+    color: $secondary-color;
+  }
+
+  .movie-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 8px;
+    width: calc(25% - 30px);
+    box-sizing: border-box;
+    transition: box-shadow 0.3s ease-in-out, width 0.3s ease-in-out;
+    position: relative;
+    margin-bottom: 25px;
+
+    &:hover {
+      box-shadow: 0 8px 16px $primary-color, 0 8px 32px $primary-color;
+
+      .movie-img {
+        
+        img {
+          transform: translate(-50%, -50%) scale(1.2);
+        }
+      }
+    }
+
+    .movie-info {
+      text-align: center;
+    }
+
+    .additional-info {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      align-items: center;
+      position: absolute;
+      top: -25px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+
+      > * {
+        border-radius: 5px;
+        flex-grow: 0;
+        width: auto;
+      }
+
+      .imdb-info {
+        background-color: #f1c40f;
+        color: $primary-color;
+      }
+
+      .year-info {
+        background-color: #2980b9;
+      }
+    }
+
+    article {
+      width: 100%;
+    }
+
+    .movie-img {
+      width: 100%;
+      padding-top: 125%;
+      overflow: hidden;
+      position: relative;
+      overflow: hidden;
+      transition: box-shadow 0.3s ease-in-out, width 0.3s ease-in-out;
+      border-radius: 5px;
+
+      .fav-btn {
+        position: absolute;
+        bottom: 10px;
+        right: 20px;
+        z-index: 1;
+      }
+
+      img {
+        transition: transform 0.3s ease;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100%;
+        height: 100%;
+      }
+    }
+
+    a {
+      width: 100%;
+    }
+
+    p {
+      font-size: 1em;
+      color: #333;
+    }
+  }
+}
+
+// responsive
+@media (max-width: $breakpoint-lg) {
+  .movies {
+    gap: 20px; 
+
+    .movie-card {
+      width: calc(33.333% - 20px);
+    }
+  }
+}
+
+@media (max-width: $breakpoint-md) {
+  .movies {
+    gap: 15px; 
+
+    .movie-card {
+      width: calc(50% - 10px);
+    }
+  }
+}
+
+@media (max-width: $breakpoint-sm) {
+  .movies {
+    .movie-card {
+      width: calc(100% - 10px);
+    }
+  }
+}

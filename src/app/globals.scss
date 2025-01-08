@@ -1,0 +1,93 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import '@/styles/_variables';
+
+body {
+  font-family: $font-family;
+  background: #212a31;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+  color: $secondary-color;
+  box-sizing: border-box; 
+}
+
+// loading animation
+.loader {
+  width: 50px;
+  aspect-ratio: 1;
+  display: grid;
+
+  &::before,
+  &::after {
+    content: "";
+    grid-area: 1 / 1;
+    --c: no-repeat radial-gradient(farthest-side,  var(--secondary-color) 92%, transparent);
+    background: 
+      var(--c) 50% 0, 
+      var(--c) 50% 100%, 
+      var(--c) 100% 50%, 
+      var(--c) 0 50%;
+    background-size: 12px 12px;
+    animation: l12 1s infinite;
+  }
+
+  &::before {
+    margin: 4px;
+    filter: hue-rotate(45deg);
+    background-size: 8px 8px;
+    animation-timing-function: linear;
+  }
+}
+
+@keyframes l12 {
+  100% {
+    transform: rotate(0.5turn);
+  }
+}
+
+// animation
+.animate {
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  transform-origin: top left;
+}
+
+@keyframes enterCenter {
+  from {
+    opacity: 0;
+    transform: scale(0.1) rotate(30deg) translate(-50%, -50%);
+    transform-origin: center bottom;
+  }
+
+  50% {
+    transform: rotate(-10deg) translate(-50%, -50%);
+  }
+
+  70% {
+    transform: rotate(3deg) translate(-50%, -50%);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1) translate(-50%, -50%);
+  }
+}
+
+.enter {
+  animation-name: enterCenter;
+}
+
+
+@media (max-width: $breakpoint-sm) {
+  body {
+    padding-top: 60px;
+  }
+}
