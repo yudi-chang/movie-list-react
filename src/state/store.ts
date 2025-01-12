@@ -6,7 +6,7 @@ export const makeStore = () => {
     reducer: {
       movie
     },
-    devTools: process.env.NODE_ENV !== 'production',
+    // devTools: process.env.NODE_ENV !== 'production',
   })
 }
 
