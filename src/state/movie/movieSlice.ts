@@ -1,5 +1,5 @@
-import { Movie, MoviesFetchPayload } from '@/types/Movies';
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { Movie } from '@/types/Movies';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 type FavoriteMap = {
   [key: string]: string,
