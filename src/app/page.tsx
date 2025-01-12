@@ -5,8 +5,6 @@ import { Movie, MoviesFetchPayload } from '@/types/Movies';
 import Movies from '@/components/Movies';
 import Container from '@/components/Container';
 import Pagination from "@mui/material/Pagination";
-import { Provider } from 'react-redux';
-import { store } from '@/state/store';
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
@@ -62,35 +60,33 @@ export default function Home() {
 
   return (
     <div>
-      <Provider store={store}>
-        <main>
-          <Container>
-            <Movies 
-              movies={movies} 
-              isLoading={isLoading} 
-              isErrorFetching={isErrorFetching} 
-              showUtilities={true} 
-              title="Movies" 
-            />
-            <Pagination
-              count={totalPages}
-              page={page}
-              onChange={handlePageChange} 
-              color="primary"
-              sx={{
-                display: 'flex',
-                justifyContent: 'center',
-                '& .MuiPaginationItem-root': {
-                  color: '#fff',
-                },
-                '& .MuiPaginationItem-root.Mui-selected': {
-                  color: '#fff',
-                },
-              }}
-            />
-          </Container>
-        </main>
-      </Provider>
+      <main>
+        <Container>
+          <Movies 
+            movies={movies} 
+            isLoading={isLoading} 
+            isErrorFetching={isErrorFetching} 
+            showUtilities={true} 
+            title="Movies" 
+          />
+          <Pagination
+            count={totalPages}
+            page={page}
+            onChange={handlePageChange} 
+            color="primary"
+            sx={{
+              display: 'flex',
+              justifyContent: 'center',
+              '& .MuiPaginationItem-root': {
+                color: '#fff',
+              },
+              '& .MuiPaginationItem-root.Mui-selected': {
+                color: '#fff',
+              },
+            }}
+          />
+        </Container>
+      </main>
     </div>
   );
 }

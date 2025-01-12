@@ -1,5 +1,5 @@
-import type { Movie } from '@/types/Movies';
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { Movie, MoviesFetchPayload } from '@/types/Movies';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 type FavoriteMap = {
   [key: string]: string,
@@ -30,8 +30,35 @@ const movieSlice = createSlice({
         delete state.favoriteIDs[action.payload.imdbID];
       }
     },
-  }
+  },
+  // for async fetch movies if put in redux
+  // extraReducers: (builder) => {
+  //   builder
+  //     .addCase(
+  //       fetchMoviesAsync.pending, (state) => {
+  //         state.isFetching = true;
+  //       }
+  //     )
+  //     .addCase(
+  //       fetchMoviesAsync.fulfilled,
+  //       (state, action: PayloadAction<Movie[]>) => {
+  //         state.isFetching = false;
+  //         state.movieList = action.payload;
+  //       }
+  //     )
+  // }
 })
+
+// for async fetch movies if put in redux
+// export const fetchMoviesAsync = createAsyncThunk(
+//   "movie/fetchMoviesAsync",
+//   async (payload: MoviesFetchPayload) => {
+//     const response = await axios.get("https://jsonmock.hackerrank.com/api/movies/search/", {
+//       params: payload,
+//     });
+//     return response.data.data
+//   } 
+// )
 
 export const { addFavorite, removeFavorite } = movieSlice.actions;
 export default movieSlice.reducer;

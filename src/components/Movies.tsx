@@ -1,4 +1,3 @@
-"use client";
 import Image from 'next/image';
 import { Movie } from '@/types/Movies';
 import styles from "./Movies.module.scss";
