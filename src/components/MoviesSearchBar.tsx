@@ -31,9 +31,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ titleSearch, setTitleSearch, fetc
 
   // trigger debounce every title search update
   useEffect(() => {
-    if (titleSearch) {
-      debouncedSearchRef.current();
-    }
+    debouncedSearchRef.current();
   }, [titleSearch]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
