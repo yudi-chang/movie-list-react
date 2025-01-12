@@ -65,8 +65,8 @@ export default function Home() {
             movies={movies} 
             isLoading={isLoading} 
             isErrorFetching={isErrorFetching} 
-            showUtilities={true} 
-            onReFetch={fetchMovies}
+            showUtilities={true}
+            fetchMovies={fetchMovies}
             title="Movies" 
           />
           <Pagination
