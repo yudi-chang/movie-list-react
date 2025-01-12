@@ -5,10 +5,3 @@ $font-family: 'Roboto', sans-serif;
 $breakpoint-lg: 1150PX;
 $breakpoint-md: 900px;
 $breakpoint-sm: 600px;
-
-:root {
-  --primary-color: #{$primary-color};
-  --primary-hover: #{$primary-hover};
-  --secondary-color: #{$secondary-color};
-  --font-family: #{$font-family};
-}

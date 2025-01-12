@@ -27,7 +27,7 @@ body {
   &::after {
     content: "";
     grid-area: 1 / 1;
-    --c: no-repeat radial-gradient(farthest-side,  var(--secondary-color) 92%, transparent);
+    --c: no-repeat radial-gradient(farthest-side, #dfe6e9 92%, transparent);
     background: 
       var(--c) 50% 0, 
       var(--c) 50% 100%, 
