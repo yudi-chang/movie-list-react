@@ -1,6 +1,8 @@
+"use client";
 import Image from 'next/image';
 import { Movie } from '@/types/Movies';
 import styles from "./Movies.module.scss";
+import FavoritesButton from '@/components/FavoritesButton';
 
 type MoviesProps = {
   movies: Movie[]
@@ -55,6 +57,9 @@ export default function Movies({
                   layout="responsive"
                   loading="lazy"
                 />
+                <div className={`${styles['fav-btn']}`}>
+                  <FavoritesButton movie={movie}/>
+                </div>
               </div>
               <div className={`${styles['movie-info']} text-md font-bold py-5 px-4`}>
                 <h2>{ movie.Title }</h2>

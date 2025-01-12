@@ -4,7 +4,9 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import styles from "./Header.module.scss";
 import BurgerIconMenu from "./BurgerIconMenu";
-// import FavoritesCounter from "./FavoritesCounter";
+import FavoritesCounter from "./FavoritesCounter";
+import { Provider } from 'react-redux';
+import { store } from '@/state/store';
 
 type LinkType = {
   name: string;
@@ -24,24 +26,27 @@ const Header = () => {
     { name: "Favorites", to: "/favorites" },
     { name: "Contact Us", to: "/contact-us" }
   ];
-
+  
   return (
     <header className={styles.header}>
       <h1 className="text-3xl font-bold cursor-pointer py-3">
         <Link href="/">Film DB</Link>
       </h1>
       <nav className={isActive ? `${styles['active']}` : ""}>
-        <ul>
-          {links.map((link) => (
-            <li key={link.name} className={`font-bold px-3 py-2 ${pathname === link.to ? `${styles['active']}` : ""}`}>
-              <span>
-                <Link href={link.to} onClick={toggleMenu}>
-                  {link.name}
-                </Link>
-              </span>
-            </li>
-          ))}
-        </ul>
+        <Provider store={store}>
+          <ul>
+            {links.map((link) => (
+              <li key={link.name} className={`font-bold px-3 py-2 ${pathname === link.to ? `${styles['active']}` : ""}`}>
+                <span>
+                  <Link href={link.to} onClick={toggleMenu}>
+                    {link.name}
+                    {link.to === '/favorites' ? <FavoritesCounter /> : ''}
+                  </Link>
+                </span>
+              </li>
+            ))}
+          </ul>
+        </Provider>
       </nav>
       <BurgerIconMenu active={isActive} onToggle={toggleMenu} />
     </header>

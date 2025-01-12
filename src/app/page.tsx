@@ -5,6 +5,8 @@ import { Movie, MoviesFetchPayload } from '@/types/Movies';
 import Movies from '@/components/Movies';
 import Container from '@/components/Container';
 import Pagination from "@mui/material/Pagination";
+import { Provider } from 'react-redux';
+import { store } from '@/state/store';
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
@@ -15,14 +17,18 @@ export default function Home() {
   const [page, setPage] = useState(1);
 
   const fetchMovies = async (payload: MoviesFetchPayload) => {
+    const cancelTokenSource = axios.CancelToken.source();
+
     try {
       setIsLoading(true);
       setIsErrorFetching(false);
       setCurrentTitle(payload?.Title || "");
       setPage(payload?.page || 1);
 
+      // refactor to use react query
       const response = await axios.get("https://jsonmock.hackerrank.com/api/movies/search/", {
         params: payload,
+        cancelToken: cancelTokenSource.token,
       });
 
       setMovies(response.data.data as Movie[]);
@@ -36,6 +42,7 @@ export default function Home() {
     } finally {
       setIsLoading(false);
     }
+    return cancelTokenSource.cancel;
   };
 
   const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) => {
@@ -47,38 +54,43 @@ export default function Home() {
   }
 
   useEffect(() => {
-    fetchMovies({});
+    const cancelRequest = fetchMovies({});
+    return () => {
+      cancelRequest.then(cancel => cancel());
+    };
   }, []);
 
   return (
     <div>
-      <main>
-        <Container>
-          <Movies 
-            movies={movies} 
-            isLoading={isLoading} 
-            isErrorFetching={isErrorFetching} 
-            showUtilities={true} 
-            title="Movies" 
-          />
-          <Pagination
-            count={totalPages}
-            page={page}
-            onChange={handlePageChange} 
-            color="primary"
-            sx={{
-              display: 'flex',
-              justifyContent: 'center',
-              '& .MuiPaginationItem-root': {
-                color: '#fff',
-              },
-              '& .MuiPaginationItem-root.Mui-selected': {
-                color: '#fff',
-              },
-            }}
-          />
-        </Container>
-      </main>
+      <Provider store={store}>
+        <main>
+          <Container>
+            <Movies 
+              movies={movies} 
+              isLoading={isLoading} 
+              isErrorFetching={isErrorFetching} 
+              showUtilities={true} 
+              title="Movies" 
+            />
+            <Pagination
+              count={totalPages}
+              page={page}
+              onChange={handlePageChange} 
+              color="primary"
+              sx={{
+                display: 'flex',
+                justifyContent: 'center',
+                '& .MuiPaginationItem-root': {
+                  color: '#fff',
+                },
+                '& .MuiPaginationItem-root.Mui-selected': {
+                  color: '#fff',
+                },
+              }}
+            />
+          </Container>
+        </main>
+      </Provider>
     </div>
   );
 }
