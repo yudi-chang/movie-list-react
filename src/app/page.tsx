@@ -7,14 +7,14 @@ import Container from '@/components/Container';
 import Pagination from "@mui/material/Pagination";
 
 export default function Home() {
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [isErrorFetching, setIsErrorFetching] = useState(false);
   const [movies, setMovies] = useState<Movie[]>([]);
   const [totalPages, setTotalPages] = useState(0);
   const [currentTitle, setCurrentTitle] = useState("");
   const [page, setPage] = useState(1);
 
-  const fetchMovies = async (payload: MoviesFetchPayload) => {
+  const fetchMovies = async (payload?: MoviesFetchPayload) => {
     const cancelTokenSource = axios.CancelToken.source();
 
     try {
@@ -23,7 +23,6 @@ export default function Home() {
       setCurrentTitle(payload?.Title || "");
       setPage(payload?.page || 1);
 
-      // refactor to use react query
       const response = await axios.get("https://jsonmock.hackerrank.com/api/movies/search/", {
         params: payload,
         cancelToken: cancelTokenSource.token,
@@ -67,6 +66,7 @@ export default function Home() {
             isLoading={isLoading} 
             isErrorFetching={isErrorFetching} 
             showUtilities={true} 
+            onReFetch={fetchMovies}
             title="Movies" 
           />
           <Pagination

@@ -1,7 +1,9 @@
 import Image from 'next/image';
-import { Movie } from '@/types/Movies';
+import { Movie, MoviesFetchPayload } from '@/types/Movies';
 import styles from "./Movies.module.scss";
 import FavoritesButton from '@/components/FavoritesButton';
+import EmptyMovies from './EmptyMovies';
+import { Canceler } from 'axios';
 
 type MoviesProps = {
   movies: Movie[]
@@ -9,6 +11,7 @@ type MoviesProps = {
   isErrorFetching: boolean
   showUtilities?: boolean
   title?: string
+  onReFetch: (payload?: MoviesFetchPayload) => Promise<Canceler>;
 }
 
 export default function Movies({
@@ -16,6 +19,7 @@ export default function Movies({
   isLoading,
   isErrorFetching,
   showUtilities = true,
+  onReFetch,
   title = 'Movies'
 }: MoviesProps) {
 
@@ -25,18 +29,18 @@ export default function Movies({
         <img src="/images/error-logo.png" alt="Unexpected error image" />
         <h2 className="mb-12 text-xl fw-bold">Oops something went wrong</h2>
         <div className={styles['message']}>An unexpected error has occured. please try again or contact support if the error persists</div>
-        {/* <button @click="retry()" className="mt-20" data-test="retry-btn">
+        <button onClick={() => onReFetch()} className="mt-20" data-test="retry-btn">
           Try again
-        </button> */}
+        </button>
       </div>
     );
   } else if (isLoading) {
     return (
-      <div>isLoading</div>
+      <div className={`loader ${styles['loader']}`} data-test="loader"></div>
     )
   } else if(movies.length === 0) {
     return (
-      <div>Empty Movie</div>
+      <EmptyMovies />
     )
   }
 
