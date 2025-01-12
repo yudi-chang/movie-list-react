@@ -22,7 +22,7 @@ const Header = () => {
   const links: LinkType[] = [
     { name: "Movies", to: "/" },
     { name: "Favorites", to: "/favorites" },
-    { name: "Contact Us", to: "/contact-us" }
+    { name: "Contact Us", to: "/contact" }
   ];
   
   return (

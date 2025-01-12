@@ -2,7 +2,6 @@ import React, { useState, useCallback, useEffect, useRef } from "react";
 import styles from "./MoviesSearchBar.module.scss";
 import { useDebounce } from "@/hooks/useDebounce";
 import { MoviesFetchPayload } from '@/types/Movies';
-import { flushSync } from "react-dom";
 
 type SearchBarProps = {
   titleSearch: string;

@@ -13,7 +13,7 @@ type MoviesProps = {
   isErrorFetching: boolean
   showUtilities?: boolean
   title?: string
-  fetchMovies: (payload?: MoviesFetchPayload) => Promise<Canceler>;
+  fetchMovies?: (payload?: MoviesFetchPayload) => Promise<Canceler>;
 }
 
 export default function Movies({
@@ -36,7 +36,9 @@ export default function Movies({
         <img src="/images/error-logo.png" alt="Unexpected error image" />
         <h2 className="mb-12 text-xl fw-bold">Oops something went wrong</h2>
         <div className={styles['message']}>An unexpected error has occured. please try again or contact support if the error persists</div>
-        <button onClick={() => fetchMovies()} className="mt-20" data-test="retry-btn">
+        <button onClick={() => {if(fetchMovies) fetchMovies()}}
+          
+          className="mt-20" data-test="retry-btn">
           Try again
         </button>
       </div>
@@ -50,7 +52,7 @@ export default function Movies({
         <MoviesSearchBar
           titleSearch={titleSearch}
           setTitleSearch={handleSearchChange}
-          fetchMovies={fetchMovies}
+          fetchMovies={fetchMovies || (() => {}) }
         />}
       <div className={`${styles['movies']} my-10`} data-test="movies-list">
         {
