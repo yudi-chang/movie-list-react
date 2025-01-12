@@ -34,7 +34,7 @@ export default function Home() {
         top: 0,
         behavior: "smooth",
       });
-    } catch (error) {
+    } catch {
       setIsErrorFetching(true);
     } finally {
       setIsLoading(false);
